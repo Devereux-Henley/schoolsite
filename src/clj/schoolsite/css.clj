@@ -1,5 +1,6 @@
 (ns schoolsite.css
  (:require [garden.def :refer [defstyles defkeyframes]]
+           [garden.stylesheet :refer [at-media]]
            [garden.selectors :as s]))
 
 (def background-color "navy")
@@ -22,7 +23,10 @@
   [:body 
    {:background-image background-image}]
   [:img#portrait
-   {:width "100%"
+   {:width "25vh"
+    :display "block"
+    :margin-left "auto"
+    :margin-right "auto"
     :border "4px solid black"}]
   [:p
    {:margin "0"}]
@@ -52,17 +56,27 @@
    [:&:visited
     {:color text-color
      :text-decoration "none"}]]
-  [:.content 
-   {:padding "3vh 10vw 55vh 3vw"
-    :margin "0vh 20vw 30vh 20vw"
-    :max-height "60vh"
-    :border-width border-width
-    :border-style border-style
-    :border-color hover-color
-    :background-color "#0a2d24"}] 
+  (at-media
+    {:min-width "776px"}
+    [:.content 
+     {:padding "3vh 10vw 55vh 3vw"
+      :margin "0vh 15vw 30vh 15vw"
+      :max-height "60vh"
+      :border-width border-width
+      :border-style border-style
+      :border-color hover-color
+      :background-image background-image-panel}])
+  (at-media
+   {:max-width "776px"}
+   [:.content
+    {:padding "3vh 10vw 55vh 3vw"
+     :margin "0vh 0vw 0vh 0vw"
+     :min-height "85vh"
+     :max-height "85vh"
+     :background-image background-image-panel}]) 
   [:.navbar-default 
    {:margin "5vh 15vw"
-    :background-image background-image}]
+    :background "none"}]
   [:.pane-enter
    {:opacity "0.01"
     :transition-delay ".5s"

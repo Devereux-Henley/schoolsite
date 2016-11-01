@@ -11,50 +11,44 @@
 (comment
   "Panel views")
 
-(defn home-text
+(defn home-panel
   []
   [re-com/v-box
-   :width "70%"
+   :gap "20px"
    :children
    [[:p "Hello this is the home page."]
     [:p "Here I will have meaningless information and images!"] 
-    [:p "foo bar baz"]]])
-
-(defn home-aides
-  []
-  [re-com/v-box
-   :width "30%"
-   :children
-   [[:img {:id  "portrait"
-           :src "../images/IMG_2757.jpg"}]]])
-
-(defn home-panel
-  []
-  [re-com/h-box
-   :children
-   [[home-text]
-    [home-aides]]])
+    [:p "Whatever"]
+    [:img 
+     {:id  "portrait"
+      :src "../images/IMG_2757.jpg"}]]])
+   
 
 (defn about-panel
   []
   [re-com/v-box
+   :gap "20px"
    :children
-   [[:p "This is the about-text right?"]]])
+   [[:p "I am currently a Senior in Computer Science at Kansas State University and plan to graduate in May 2017."]
+    [:p "From 2014-2015 I worked in Kansas States Office of Mediated Education as Quality Assurance for KSU web applications."]
+    [:p "From 2015 to the present I have worked for Kansas States Office of Mediated Education as an Integration Developer."]]])
 
 (defn contact-panel
   []
   [re-com/v-box
+   :gap "20px"
    :children 
-   [[:p "Mobile Phone: 785-979-5152"]
-    [:p "Email: devereux@ksu.edu"]
-    [re-com/hyperlink-href 
-      :href "https://github.com/Devereux-Henley" 
-      :label "Github"
-      :class "main-text"]
-    [re-com/hyperlink-href 
-      :href "https://www.linkedin.com/in/devereux-henley-a84613102" 
-      :label "Linkedin"
-      :class "main-text"]]])
+   [[:p "Email: devereux@ksu.edu"]
+    [:div
+     [re-com/hyperlink-href 
+       :href "https://github.com/Devereux-Henley" 
+       :label "Github"
+       :class "main-text"]]
+    [:div
+     [re-com/hyperlink-href 
+       :href "https://www.linkedin.com/in/devereux-henley-a84613102" 
+       :label "Linkedin"
+       :class "main-text"]]]])
 
 (comment
   "Views object. This will be used with the :current-panel subscription to determine our view.")
@@ -68,7 +62,8 @@
 (comment
   "Components that consume subscriptions.")
 
-(defn nav-button [id label url]
+(defn nav-button 
+  [id label url]
   (fn []
     [re-com/hyperlink-href
      :class "nav-text"
@@ -83,7 +78,8 @@
    [nav-button "about-btn" "About" "#about"] 
    [nav-button "contact-btn" "Contact" "#contact"]])
 
-(defn nav-bar []
+(defn nav-bar 
+  []
   (fn []
     [:nav.navbar
      [re-com/h-box
@@ -92,7 +88,8 @@
       :gap "3vw"
       :children (nav-button-vec)]]))
 
-(defn content-panel [id]
+(defn content-panel 
+  [id]
   (let [content (re-frame/subscribe [:current-panel])]
     (fn []
       [:div.content.main-text
