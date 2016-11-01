@@ -1,7 +1,7 @@
 # schoolsite
 
 Personal website built with re-frame and re-com.
-
+Textures from subtlepatterns.com
 ### Compile css:
 
 Compile css file once.
