@@ -102,10 +102,28 @@
         ^{:key @content}
         [(@content (views))]]])))
 
+(defn icon-button
+  [id icon-name url]
+  (fn []
+    [re-com/md-icon-button
+     :md-icon-name icon-name
+     :on-click #(.open js/parent url)
+     :size :larger
+     :attr {:id id}]))
+
+(defn icon-bar
+  []
+  (fn []
+    [:nav.iconbar
+     [re-com/h-box
+      :justify :center
+      :children [[icon-button "github" "zmdi-github" "https://github.com/Devereux-Henley"]
+                 [icon-button "linkedin" "zmdi-linkedin" "https://www.linkedin.com/in/devereux-henley-a84613102"]]]])) 
+
 (comment
   "Top level exported view. This is exported to our core function on load and mounted to the DOM.")
 
 (defn main-panel []
   (fn []
     [re-com/v-box
-     :children [[nav-bar] [content-panel "Content"]]]))  
+     :children [[nav-bar] [content-panel "Content"] [icon-bar]]]))  

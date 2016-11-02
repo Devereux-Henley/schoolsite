@@ -60,8 +60,9 @@
     {:min-width "776px"}
     [:.content 
      {:padding "3vh 10vw 55vh 3vw"
-      :margin "0vh 15vw 30vh 15vw"
-      :max-height "60vh"
+      :margin "0vh 15vw 10vh 15vw"
+      :min-height "70vh"
+      :max-height "70vh"
       :border-width border-width
       :border-style border-style
       :border-color hover-color
@@ -69,7 +70,7 @@
   (at-media
    {:max-width "776px"}
    [:.content
-    {:padding "3vh 10vw 55vh 3vw"
+    {:padding "3vh 10vw 35vh 3vw"
      :margin "0vh 0vw 0vh 0vw"
      :min-height "85vh"
      :max-height "85vh"
