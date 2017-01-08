@@ -34,7 +34,7 @@
   {:dependencies [[com.cemerick/piggieback "0.2.1"]
                   [org.clojure/tools.nrepl "0.2.11"]]
    :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-   :plugins      [[lein-figwheel "0.5.4-7"]]}}    
+   :plugins      [[lein-figwheel "0.5.8"]]}}    
 
  :cljsbuild
  {:builds

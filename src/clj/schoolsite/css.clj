@@ -1,9 +1,7 @@
 (ns schoolsite.css
  (:require [garden.def :refer [defstyles defkeyframes]]
-           [garden.stylesheet :refer [at-media]]
-           [garden.selectors :as s]))
+           [garden.stylesheet :refer [at-media]]))
 
-(def background-color "navy")
 (def background-image-panel "url(../images/footer_lodyas.png)")
 
 (def text-color "rgba(18, 255, 169, .97)")
@@ -19,9 +17,36 @@
 
 (def background-image "url(../images/dark_dotted2.png)")
 
-(defstyles screen 
+(defstyles screen
+  (at-media
+    {:min-width "776px"}
+    [:.content
+     {:padding "3vh 10vw 55vh 3vw"
+      :margin "0vh 15vw 10vh 15vw"
+      :min-height "70vh"
+      :max-height "70vh"
+      :border-width border-width
+      :border-style border-style
+      :border-color hover-color
+      :background-image background-image-panel}])
+  (at-media
+    {:max-width "776px"}
+    [:.content
+     {:padding "3vh 10vw 35vh 3vw"
+      :margin "0vh 0vw 0vh 0vw"
+      :min-height "80vh"
+      :max-height "80vh"
+      :background-image background-image-panel}]
+    [:#icons
+     {:background "black"}])
   [:body 
    {:background-image background-image}]
+  [:ul
+   {:list-style-type "none"
+    :font-size "16px"}]
+  [:div.rc-md-icon-button
+   [:&:hover 
+    {:color text-color}]]
   [:img#portrait
    {:width "25vh"
     :display "block"
@@ -29,17 +54,11 @@
     :margin-right "auto"
     :border "4px solid black"}]
   [:p
-   {:margin "0"}]
+   {:margin "0"
+    :font-size "16px"}]
   [:.main-text 
    {:color text-color
-    :text-shadow text-shadow
-    :font-size "16px"}
-   [:&:hover
-    nav-defaults
-    [:&:visited
-     nav-defaults]]
-   [:&:active
-    nav-defaults]
+    :text-shadow text-shadow}
    [:p
     {:color text-color
      :text-decoration "none"}]]
@@ -56,25 +75,6 @@
    [:&:visited
     {:color text-color
      :text-decoration "none"}]]
-  (at-media
-    {:min-width "776px"}
-    [:.content 
-     {:padding "3vh 10vw 55vh 3vw"
-      :margin "0vh 15vw 10vh 15vw"
-      :min-height "70vh"
-      :max-height "70vh"
-      :border-width border-width
-      :border-style border-style
-      :border-color hover-color
-      :background-image background-image-panel}])
-  (at-media
-   {:max-width "776px"}
-   [:.content
-    {:padding "3vh 10vw 35vh 3vw"
-     :margin "0vh 0vw 0vh 0vw"
-     :min-height "85vh"
-     :max-height "85vh"
-     :background-image background-image-panel}]) 
   [:.navbar-default 
    {:margin "5vh 15vw"
     :background "none"}]

@@ -1,7 +1,7 @@
 (ns schoolsite.views 
- (:require [re-frame.core :as re-frame]
-           [re-com.core :as re-com]
-           [reagent.core :as reagent])) 
+  (:require [re-frame.core :as re-frame]
+            [re-com.core :as re-com]
+            [reagent.core :as reagent])) 
 (comment
   "Adapt CSSTransitionGroup class in order to animate routing transitions later on.")
 
@@ -11,53 +11,98 @@
 (comment
   "Panel views")
 
+(defn li-gen
+  [col]
+  (into 
+    [:ul]
+    (for [list-item col] [:li list-item])))
+        
+
+(defn title-wrap
+  [text]
+  [re-com/title
+   :label text
+   :level :level2
+   :margin-top "0"
+   :class "main-text"])
+
+(defn header-wrap
+  [text]
+  [re-com/title
+   :label text
+   :margin-top "0"
+   :margin-bottom "0"
+   :level :level3
+   :class "main-text"])
+
+(defn subheadings-wrap
+  [titles lists]
+  (into
+    [:ul]
+    (mapv
+      (fn [x y] [:li x (li-gen y)])
+      titles
+      lists)))
+
 (defn home-panel
   []
   [re-com/v-box
-   :gap "20px"
+   :gap "8px"
    :children
    [[:p "Hello this is the home page."]
-    [:p "Here I will have meaningless information and images!"] 
-    [:p "Whatever"]
     [:img 
      {:id  "portrait"
-      :src "../images/IMG_2757.jpg"}]]])
-   
+      :src "images/IMG_2757.jpg"}]]])
+
 
 (defn about-panel
   []
   [re-com/v-box
-   :gap "20px"
+   :gap "8px"
    :children
    [[:p "I am currently a Senior in Computer Science at Kansas State University and plan to graduate in May 2017."]
-    [:p "From 2014-2015 I worked in Kansas States Office of Mediated Education as Quality Assurance for KSU web applications."]
-    [:p "From 2015 to the present I have worked for Kansas States Office of Mediated Education as an Integration Developer."]]])
+    [:p "Most of what I write in my free time (such as this website) is written in either Clojure or Clojurescript"]]]) 
 
-(defn contact-panel
+(defn work-panel
   []
   [re-com/v-box
-   :gap "20px"
+   :gap "8px"
    :children 
-   [[:p "Email: devereux@ksu.edu"]
-    [:div
-     [re-com/hyperlink-href 
-       :href "https://github.com/Devereux-Henley" 
-       :label "Github"
-       :class "main-text"]]
-    [:div
-     [re-com/hyperlink-href 
-       :href "https://www.linkedin.com/in/devereux-henley-a84613102" 
-       :label "Linkedin"
-       :class "main-text"]]]])
+   [(title-wrap
+      "General Electric Aviation")
+    (header-wrap 
+      "Student Software Engineer - 2017-Present:")
+    (subheadings-wrap 
+      ["Probably doing unit testing."] 
+      [["Specifics TBA"]])
+    (title-wrap
+      "Kansas State University")  
+    (header-wrap 
+      "Student Integration Developer - 2015-2016:")
+    (subheadings-wrap 
+      ["Working with the SoftwareAG webMethods stack utilizing:"
+       "Prototyping new frontend applications using Javascript & JQuery."
+       "Writing tools for data transformation using Python & Clojure."]
+      [["Integration Server & Broker"
+        "Universal Messaging"
+        "Document Publishing and Subscription"
+        "Oracle SQL"
+        "Web Portlets"]
+       []
+       []]) 
+    (header-wrap "Student Quality Assurance - 2014-2015:")
+    (li-gen
+     ["Performing application testing for Kansas State web products."
+      "Serving as 2nd tier IT support for the University."])]])
 
 (comment
-  "Views object. This will be used with the :current-panel subscription to determine our view.")
+  "Views map. This will be used with the :current-panel subscription to determine our view.")
 
 (defn views
   []
-  {:home home-panel
+  {:home  home-panel
    :about about-panel
-   :contact contact-panel})
+   :work  work-panel})
 
 (comment
   "Components that consume subscriptions.")
@@ -74,26 +119,30 @@
 
 (defn nav-button-vec
   []
-  [[nav-button "home-btn" "Home" "#"] 
-   [nav-button "about-btn" "About" "#about"] 
-   [nav-button "contact-btn" "Contact" "#contact"]])
+  [[nav-button "home-btn"  "Home"  "#"]
+   [nav-button "about-btn" "About" "#about"]
+   [nav-button "work-btn"  "Work"  "#work"]])
 
 (defn nav-bar 
-  []
+  [id]
   (fn []
     [:nav.navbar
      [re-com/h-box
+      :attr {:id id}
       :class "navbar-default main-text"
       :justify :end
       :gap "3vw"
       :children (nav-button-vec)]]))
 
-(defn content-panel 
+(defn content-panel
   [id]
   (let [content (re-frame/subscribe [:current-panel])]
     (fn []
-      [:div.content.main-text
-       {:id id}
+      [re-com/scroller
+       :class "main-text content"
+       :v-scroll :auto
+       :attr {:id id}
+       :child
        [css-transition-group
         {:transition-name "pane" 
          :transition-enter-timeout 500
@@ -112,10 +161,11 @@
      :attr {:id id}]))
 
 (defn icon-bar
-  []
+  [id]
   (fn []
     [:nav.iconbar
      [re-com/h-box
+      :attr {:id id}
       :justify :center
       :children [[icon-button "github" "zmdi-github" "https://github.com/Devereux-Henley"]
                  [icon-button "linkedin" "zmdi-linkedin" "https://www.linkedin.com/in/devereux-henley-a84613102"]]]])) 
@@ -126,4 +176,6 @@
 (defn main-panel []
   (fn []
     [re-com/v-box
-     :children [[nav-bar] [content-panel "Content"] [icon-bar]]]))  
+     :children [[nav-bar       "navigation"]
+                [content-panel "content"]
+                [icon-bar      "icons"]]]))  

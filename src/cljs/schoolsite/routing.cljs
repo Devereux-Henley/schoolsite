@@ -10,13 +10,13 @@
   ["" {""         :home
        "/"        :home
        "about"    :about
-       "contact"  :contact}])
+       "work"     :work}])
 
 (defn match-handler
   [x]
   (re-frame/dispatch [:set-panel (:handler (bidi/match-route (routes) (.-token x)))]))
 
-(def history
+(defonce history
   (History.))
 
 (defn init-routes

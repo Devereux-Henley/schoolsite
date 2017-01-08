@@ -12,7 +12,6 @@
            [schoolsite.views :as views])  
  (:import [goog.events EventType]))
 
-
 (defn dev-setup 
   []
   (when config/debug?
