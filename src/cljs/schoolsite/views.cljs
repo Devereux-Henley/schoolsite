@@ -1,7 +1,7 @@
 (ns schoolsite.views 
-  (:require [re-frame.core :as re-frame]
-            [re-com.core :as re-com]
-            [reagent.core :as reagent])) 
+ (:require [re-frame.core :as re-frame]
+           [re-com.core :as re-com]
+           [reagent.core :as reagent])) 
 (comment
   "Adapt CSSTransitionGroup class in order to animate routing transitions later on.")
 
@@ -49,7 +49,7 @@
   [re-com/v-box
    :gap "8px"
    :children
-   [[:p "Hello this is the home page."]
+   [[:p "Hello!"]
     [:img 
      {:id  "portrait"
       :src "images/IMG_2757.jpg"}]]])
@@ -73,8 +73,9 @@
     (header-wrap 
       "Student Software Engineer - 2017-Present:")
     (subheadings-wrap 
-      ["Probably doing unit testing."] 
-      [["Specifics TBA"]])
+      ["Writing Test Suites for Flight Management Systems utilizing: "] 
+      [["C# and Visual Basic .NET"
+        "Git"]])
     (title-wrap
       "Kansas State University")  
     (header-wrap 

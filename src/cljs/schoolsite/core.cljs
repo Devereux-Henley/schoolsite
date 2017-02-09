@@ -4,7 +4,6 @@
            [re-frame.core :as re-frame]
            [reagent.core :as reagent]
            [schoolsite.config :as config]
-           [schoolsite.events :as se :refer [EventListener]]
            [schoolsite.handlers]
            [schoolsite.routing :refer [init-routes]]
            [schoolsite.subs]
@@ -26,12 +25,6 @@
 (defn get-pane
   []
   (by-id "content-pane"))
-
-(defn test-queues
-  []
-  (se/event-queues [(EventListener. (by-id "home-btn") EventType.CLICK (fn [e] (.log js/console "home")))
-                    (EventListener. (by-id "about-btn") EventType.CLICK (fn [e] (.log js/console "about")))
-                    (EventListener. (by-id "contact-btn") EventType.CLICK (fn [e] (.log js/console "contact")))]))
 
 (defn ^:export init 
   []
